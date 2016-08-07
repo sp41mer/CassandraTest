@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
 __author__ = 'sp41mer'
 from bs4 import BeautifulSoup
-import json
+import json, sys
 import requests
 from cassandra.cluster import Cluster
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 #initial connection Cassandra
 cluster = Cluster()
@@ -15,7 +19,7 @@ url = 'www.virtualacademy.ru/repetitory/po-anglyskomu-yazyku/'
 r = requests.get("http://" + url)
 data = r.text
 soup = BeautifulSoup(data)
-
+id = 1
 # get every repetitor on the page
 for repetitor in soup.find_all('div', attrs={'class': 'result-questionnaire'}):
     # get avatar photo
@@ -28,6 +32,17 @@ for repetitor in soup.find_all('div', attrs={'class': 'result-questionnaire'}):
     for piece_of_info in info.find_all('li'):
         repetitor_info[iter] = piece_of_info.text
         iter += 1
+    session.execute("""
+        INSERT INTO users (rep_id,avatar,name,subject,education,cost,type,subway)
+        VALUES ({},'{}','{}', '{}', '{}','{}','{}', '{}')
+        """.format(id,
+                   parenturl+ava_url,
+                   name,
+                   repetitor_info[0],
+                   repetitor_info[1],
+                   repetitor_info[2],
+                   repetitor_info[3],
+                   repetitor_info[4]))
     #make array of repetitors
     repetitors_array.append({
         'avatar': parenturl+ava_url,
@@ -39,13 +54,5 @@ for repetitor in soup.find_all('div', attrs={'class': 'result-questionnaire'}):
         'subway': repetitor_info[4],
         'comment': repetitor_info[5]
         })
+    id += 1
 
-session.execute(
-    """
-    INSERT INTO users (userid,name,age,email)
-    VALUES ('{}','{}', {}, '{}')
-    """.format('user2','Name of User 2',17,'email2@email.com')
-)
-rows = session.execute('SELECT name, age, email FROM users')
-for user_row in rows:
-    print user_row.name, user_row.age, user_row.email
