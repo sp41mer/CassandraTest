@@ -9,12 +9,13 @@ fields = 'exports,personal,occupation,connections,sex,country,city,' \
          'bdate,sex,deactivated,has_photo,contacts,status,last_seen,' \
          'followers_count,online,relation,interests'
 
-
+connection.setup(['127.0.0.1'], "mykeyspace", protocol_version=3)
 for group in Group.select().limit(20):
     group_id = group.vk_id
     q = GroupNoSQL.objects(vk_id=group_id)
 
     for info in q[0].members:
+        #grabbing friends to Cassandra
         method = "friends.get"
         user_id = info
         response = requests.post('https://api.vk.com/method/' + method,
@@ -25,6 +26,7 @@ for group in Group.select().limit(20):
             FriendsNoSQL.create(vk_id=str(user_id), friends=friends)
         except Exception:
             print str(user_id)+' '+data['error']['error_msg']
+        #grab info to PotsgresSQL
         method = "users.get"
         response = requests.post('https://api.vk.com/method/' + method,
                                  data={'user_id': user_id,
@@ -72,6 +74,7 @@ for group in Group.select().limit(20):
                 a.last_seen_time = info[0].get('last_seen').get('time', None)
                 a.last_seen_platform = info[0].get('last_seen').get('platform', None)
                 a.save()
+                print info[0].get('last_name', None)
         except Exception, e:
             print str(e)
             print data

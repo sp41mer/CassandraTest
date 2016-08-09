@@ -9,6 +9,7 @@ connection.setup(['127.0.0.1'], "mykeyspace", protocol_version=3)
 sync_table(GroupNoSQL)
 sync_table(FriendsNoSQL)
 
+
 for group in Group.select():
     method = "groups.getMembers"
     group_id = str(group.vk_id)
@@ -20,7 +21,12 @@ for group in Group.select():
                                   'access_token': vk_access_token})
     predata = json.loads(preresponse.text)
 
-    GroupNoSQL.create(vk_id=group_id, members=set(predata['response']['users']))
+    try:
+        GroupNoSQL.create(vk_id=group_id, members=set(predata['response']['users']))
+    except Exception,e:
+        print str(e)
+        print predata
+    print group.name
     time.sleep(0.4)
 
 

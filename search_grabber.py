@@ -13,15 +13,15 @@ response = requests.post('https://api.vk.com/method/' + method,
 data = json.loads(response.text)
 group_list = data['response'][1:]
 for group in group_list:
-    print group.get('name','')
+    print group.get('name', '')
     g = Group(
-        vk_id = group.get('gid', ''),
-        name = group.get('name',''),
-        screen_name = group.get('screen_name', ''),
-        type = group.get('type',''),
-        photo_50 = group.get('photo_50',''),
-        photo_100 = group.get('photo_100',''),
-        photo_200 = group.get('photo_200','')
+        vk_id=group.get('gid', ''),
+        name=group.get('name', ''),
+        screen_name=group.get('screen_name', ''),
+        type=group.get('type', ''),
+        photo_50=group.get('photo_50', ''),
+        photo_100=group.get('photo_100', ''),
+        photo_200=group.get('photo_200', '')
     )
     g.save()
     time.sleep(0.4)
