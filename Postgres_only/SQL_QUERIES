@@ -1,0 +1,3 @@
+create table users_and_groups (id SERIAL PRIMARY KEY, vk_id INT, groups INT[]);
+create table users_and_friends (id SERIAL PRIMARY KEY, vk_id INT, friends INT[]);
+create table groups_and_users (id SERIAL PRIMARY KEY, vk_id INT, users INT[]);

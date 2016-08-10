@@ -1,0 +1,2 @@
+__author__ = 'sp41mer'
+vk_access_token = "3e294c9974e7ce42912db795e7311a12c899ec5fd3728c5adf64b735f558662a4d606fb1a6849f124772e"
