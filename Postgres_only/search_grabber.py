@@ -11,7 +11,7 @@ response = requests.post('https://api.vk.com/method/' + method,
                                   'count': 1000,
                                   'access_token':vk_access_token})
 data = json.loads(response.text)
-group_list = data['response'][1:20]
+group_list = data['response'][1:]
 for group in group_list:
     print group.get('name', '')
     g = Group(
