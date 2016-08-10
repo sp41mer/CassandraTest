@@ -10,7 +10,7 @@ fields = 'exports,personal,occupation,connections,sex,country,city,' \
 conn_string = "host='localhost' dbname='only_postgres_parcing' user='root' password='root'"
 conn = psycopg2.connect(conn_string)
 
-for group in Group.select().limit(1):
+for group in Group.select().limit(50):
     group_id = group.vk_id
     cur = conn.cursor()
     cur.execute("SELECT users FROM groups_and_users WHERE vk_id = {}".format(group_id))
