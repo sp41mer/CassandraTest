@@ -11,7 +11,7 @@ from vk_access_token import vk_access_token
 # connection.setup(['127.0.0.1'], "mykeyspace", protocol_version=3)
 #for DigitalOcean
 auth_provider = PlainTextAuthProvider(username='rootuser', password='zatreschina')
-connection.setup(['178.62.205.208'], "mykeyspace", protocol_version=3, auth_provider=auth_provider)
+connection.setup(['178.62.205.208'], "Parcing_v1", protocol_version=3, auth_provider=auth_provider)
 sync_table(GroupNoSQL)
 sync_table(FriendsNoSQL)
 
