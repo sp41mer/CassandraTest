@@ -7,18 +7,32 @@ from cassandra.cqlengine.models import Model
 class GroupNoSQL(Model):
     vk_id = columns.Text(primary_key=True)
     members = columns.List(columns.Integer)
-
+    members_65p = columns.List(columns.Integer, default={0})
+    members_130p = columns.List(columns.Integer, default={0})
+    members_195p = columns.List(columns.Integer, default={0})
+    members_260p = columns.List(columns.Integer, default={0})
+    members_325p = columns.List(columns.Integer, default={0})
+    members_390p = columns.List(columns.Integer, default={0})
+    members_455p = columns.List(columns.Integer, default={0})
+    members_520p = columns.List(columns.Integer, default={0})
+    members_585p = columns.List(columns.Integer, default={0})
+    members_650p = columns.List(columns.Integer, default={0})
+    members_715p = columns.List(columns.Integer, default={0})
+    members_780p = columns.List(columns.Integer, default={0})
+    members_845p = columns.List(columns.Integer, default={0})
+    members_910p = columns.List(columns.Integer, default={0})
+    members_975p = columns.List(columns.Integer, default={0})
 
 class FriendsNoSQL(Model):
     vk_id = columns.Text(primary_key=True)
-    friends = columns.List(columns.Integer)
+    friends = columns.List(columns.Integer, default={0})
 
 
 database = peewee.PostgresqlDatabase(
-    'parsing_db',
-    user='root',
-    password='root',
-    host='localhost'
+    'parse_db',
+    user='parcer',
+    password='zatreschina',
+    host='178.62.205.208'
 )
 
 
@@ -66,6 +80,7 @@ class User(peewee.Model):
 
 class Group(peewee.Model):
     vk_id = peewee.CharField(default='', null=True)
+    query_string = peewee.CharField(default='', null=True)
     name = peewee.CharField(default='', null=True)
     screen_name = peewee.CharField(default='', null=True)
     type = peewee.CharField(default='', null=True)

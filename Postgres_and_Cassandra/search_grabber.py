@@ -4,18 +4,21 @@ import json, requests, sys, logging, time, datetime
 from models import Group
 from vk_access_token import vk_access_token
 
+
 method = "groups.search"
-search_query = "материнский капитал"
+search_query = 'материнский капитал'
 response = requests.post('https://api.vk.com/method/' + method,
-                            data={'q': search_query ,
-                                  'count': 1000,
-                                  'access_token':vk_access_token})
+                            data={'q': search_query,
+                                  'count': 10,
+                                  'v': 5.53,
+                                  'access_token': vk_access_token})
 data = json.loads(response.text)
-group_list = data['response'][1:]
+group_list = data['response']['items']
 for group in group_list:
     print group.get('name', '')
-    g = Group(
-        vk_id=group.get('gid', ''),
+    new_group = Group(
+        vk_id=group.get('id', ''),
+        query_string= search_query,
         name=group.get('name', ''),
         screen_name=group.get('screen_name', ''),
         type=group.get('type', ''),
@@ -23,5 +26,5 @@ for group in group_list:
         photo_100=group.get('photo_100', ''),
         photo_200=group.get('photo_200', '')
     )
-    g.save()
-    time.sleep(0.4)
+    new_group.save()
+    # time.sleep(0.4)
