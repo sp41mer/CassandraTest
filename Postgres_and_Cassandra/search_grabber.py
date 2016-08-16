@@ -14,7 +14,10 @@ def get_groups(query):
                                       'v': 5.53,
                                       'access_token': vk_access_token})
     data = json.loads(response.text)
-    group_list = data['response']['items']
+    try:
+        group_list = data['response']['items']
+    except Exception, e:
+        print str(e)
     for group in group_list:
         print group.get('name', '')
         new_group = Group(
