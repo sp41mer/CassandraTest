@@ -103,7 +103,7 @@ def parse_users_from_groups():
                     print str(e)
                     print data
 
-                time.sleep(0.4)
+            time.sleep(0.4)
 
 
 
