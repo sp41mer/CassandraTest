@@ -13,13 +13,14 @@ def parse_users_from_groups():
              'bdate,sex,deactivated,has_photo,contacts,status,last_seen,' \
              'followers_count,online,relation,interests'
 
-    auth_provider = PlainTextAuthProvider(username='rootuser', password='zatreschina')
-    connection.setup(['178.62.205.208'], "parse_db", protocol_version=3, auth_provider=auth_provider)
-    sync_table(GroupNoSQL)
-    sync_table(FriendsNoSQL)
+    # auth_provider = PlainTextAuthProvider(username='rootuser', password='zatreschina')
+    # connection.setup(['178.62.205.208'], "parse_db", protocol_version=3, auth_provider=auth_provider)
+    # sync_table(GroupNoSQL)
+    # sync_table(FriendsNoSQL)
 
     for group in Group.select():
         group_id = group.vk_id
+        print group.name
         q = GroupNoSQL.objects.filter(vk_id=group_id)
         data = q[0].members + q[0].members_65p + q[0].members_130p + q[0].members_195p + \
                q[0].members_260p + q[0].members_325p +q[0].members_390p + \
