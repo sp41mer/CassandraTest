@@ -21,6 +21,7 @@ def parse_users_from_groups():
     for group in Group.select():
         group_id = group.vk_id
         print group.name
+        print group.query_string
         q = GroupNoSQL.objects.filter(vk_id=group_id)
         data = q[0].members + q[0].members_65p + q[0].members_130p + q[0].members_195p + \
                q[0].members_260p + q[0].members_325p +q[0].members_390p + \
