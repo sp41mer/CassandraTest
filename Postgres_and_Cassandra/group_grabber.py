@@ -16,7 +16,7 @@ def write_to_cassandra_db():
 
     #for DigitalOcean
     auth_provider = PlainTextAuthProvider(username='rootuser', password='zatreschina')
-    connection.setup(['178.62.205.208'], "parse_db", protocol_version=3, auth_provider=auth_provider)
+    connection.setup(['178.62.205.208'], "lawyers_db", protocol_version=3, auth_provider=auth_provider)
     sync_table(GroupNoSQL)
     sync_table(FriendsNoSQL)
 

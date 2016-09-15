@@ -29,7 +29,7 @@ class FriendsNoSQL(Model):
 
 
 database = peewee.PostgresqlDatabase(
-    'parse_db',
+    'lawyers_db',
     user='parcer',
     password='zatreschina',
     host='178.62.205.208'
